@@ -12,7 +12,10 @@ from keras.models import Model
 from keras import models
 from keras.preprocessing.image import ImageDataGenerator
 
-
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
 
 
 def save_hyperparams(drop,batch,opt,extra_layers,layer_size,act,patience,init_weights,model_name,train_items):

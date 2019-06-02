@@ -68,6 +68,10 @@ val_dir = os.path.join(base_dir, 'val')
 # Confirm train and val contain identical classes
 train_items = set(os.listdir(train_dir))
 val_items = set(os.listdir(val_dir))
+if '.DS_Store' in train_items or '.DS_Store' in val_items:
+    print('Remove all .DS_Store files from data folders')
+    print('\tTRY: find . -name \'*.DS_Store\' -type f -delete')
+    quit()
 if train_items != val_items:
     print('Training classes not same as validation classes')
     print('\tItems in train not in val: ' + str((train_items - val_items)))

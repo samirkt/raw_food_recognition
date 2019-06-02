@@ -1,3 +1,39 @@
+# RAW FOOD RECOGNITION #
+
+
+### DESCRIPTION ###
+
+This code base enables a user to download raw food images from ImageNet and train a fine-tuned MobileNet model on the acquired data. This README offers a description of the files contained in this repository and their outputs as well as a walkthrough of its usage.
+
+
+### PROJECT CONTENTS ###
+
+Data:
+All scripts are in the root directory. Data is initially stored in 'data/train/' after running download script or unzipping raw data file. After removing corrupt images, part of data can be split into training and validation sets (SEE "USAGE"). Validation data is stored in 'data/val/'. The final result of unpacking and cleaning the data is as follows:
+
+data
+|
+---- train
+|		|
+|		---- class1
+|		|
+|		---- class2
+|
+---- val
+		|
+		---- class1
+		|
+		---- class2
+
+Training:
+Training will save each trained model to a *.h5 file in the 'models/' directory. The model will be saved as 'modelX.h5' where X is the lowest available number in the 'models/' directory. Model hyperparameter settings will be appended to 'models.txt'. Training outputs will be saved to model specific files in the 'outputs/' directory.
+
+Testing:
+Testing will accumulate stats for a model's performance on a per-class basis. Per-class accuracies, total accuracy, and total RMSE for the tested model will be appended to 'results.txt'.
+
+
+### USAGE ###
+
 #### Get URLS ####
 1. Download full URLs file for imagenet dataset:
 		http://image-net.org/download-imageurls

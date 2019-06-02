@@ -2,3 +2,7 @@
 *.swp
 *.pyc
 *.out
+.DS_Store
+data/
+*.jpg
+*.png

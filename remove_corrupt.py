@@ -4,6 +4,8 @@ import os
 import sys
 from PIL import Image
 from glob import glob
+import warnings
+warnings.filterwarnings("error")
 
 # Loop through each class in specified directory
 for folder in glob(sys.argv[1] + '/*/'):

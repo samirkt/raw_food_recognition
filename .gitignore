@@ -2,8 +2,12 @@
 *.swp
 *.pyc
 *.out
+**/.DS_Store
 .DS_Store
 data/
 *.jpg
 *.png
 models/
+outputs/
+models.txt
+results.txt

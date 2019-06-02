@@ -2,18 +2,18 @@
 1. Download full URLs file for imagenet dataset:
 		http://image-net.org/download-imageurls
 		(save as 'original_urls.txt')
-2. gcc urls_to_csv.c						...			converts URLS to comma separated format
+2. gcc urls_to_csv.c					// converts URLS to comma separated format
 
 #### Get images ####
-3. python download_images.py				... 		downloads URLS from 'urls.txt'
+3. python download_images.py			// downloads URLS from 'urls.txt'
 	(...or unzip raw_data.zip)
 
 #### Organize data ####
-4. python remove_corrupt.py data/train/		...		 	removes images that can't be opened in 'data/'
-5. python split_data.py data/				... 		creates validation image set from images in 'data/train/'
+4. python remove_corrupt.py data/train/		// removes images that can't be opened in 'data/'
+5. python split_data.py data/				// creates validation image set from images in 'data/train/'
 
 #### Train model ####
-6. python train.py data/					... 		train on images in 'data/'
+6. python train.py data/					// train on images in 'data/'
 
 #### Test model ####
-7. python test.py data/ x					...			test model number x
+7. python test.py data/ x					// test model number x

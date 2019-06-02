@@ -17,7 +17,6 @@ def warn(*args, **kwargs):
 import warnings
 warnings.warn = warn
 
-
 def save_hyperparams(drop,batch,opt,extra_layers,layer_size,act,patience,init_weights,model_name,train_items):
     with open('models.txt','a') as f:
         f.write(model_name+'\n')

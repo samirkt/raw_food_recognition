@@ -44,7 +44,10 @@ patience = 5
 init_weights = 'imagenet'
 
 # Pick model name
-model_list = os.listdir('models/')
+model_dir = 'models/'
+if not os.path.exists(model_dir):
+    os.makedirs(model_dir)
+model_list = os.listdir(model_dir)
 model_id = 0
 while True:
     model_name = 'model' + str(model_id) + '.h5'
@@ -122,7 +125,10 @@ history = model.fit_generator(
       verbose=1)
 
 # Save training output
-with open('outputs/'+model_name+'.txt','w') as f:
+out_dir = 'outputs/'
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
+with open(out_dir+model_name+'.txt','w') as f:
     model.summary(print_fn=lambda x: f.write(x + '\n'))
     f.write('\n')
     h = history.history

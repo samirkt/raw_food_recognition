@@ -1,9 +1,9 @@
-# RAW FOOD RECOGNITION #
+# RAW FOOD IMAGE RECOGNITION #
 
 
 ### DESCRIPTION ###
 
-This code base enables a user to download raw food images using URLs from ImageNet and train a fine-tuned MobileNet model on the acquired data. This README offers a description of the files contained in this repository and their outputs as well as a walkthrough of its usage.
+This code base enables a user to download raw food images using URLs from ImageNet and train a fine-tuned MobileNet model on the acquired data for object recognition. This README offers a description of the files contained in this repository and their outputs as well as a walkthrough of its usage.
 
 
 ### PROJECT CONTENTS ###

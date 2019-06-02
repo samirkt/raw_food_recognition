@@ -38,7 +38,7 @@ labels = dict((v,k) for k,v in labels.items())
 # Make model predictions and extract best pred
 val_generator.reset()
 steps=len(filenames)
-pred = model.predict_generator(val_generator,steps=steps)
+pred = model.predict_generator(val_generator,steps=steps,verbose=1)
 predicted_class_indices=np.argmax(pred,axis=1)
 predictions = [labels[i] for i in predicted_class_indices]
 pred_vals = np.max(pred,axis=1)

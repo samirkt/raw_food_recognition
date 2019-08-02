@@ -75,5 +75,5 @@ b = open(incorr_file,'w+')
 b.close()
 
 # Run generator predictions on training and validation data
-generator('val')
 generator('train')
+generator('val')

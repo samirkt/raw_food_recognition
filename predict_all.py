@@ -20,9 +20,6 @@ import os,sys
 from collections import defaultdict
 
 
-corr_file = 'correct.txt'
-incorr_file = 'incorrect.txt'
-
 # Identify data directory and model to load
 base_dir = sys.argv[1]
 model_num = sys.argv[2]
@@ -30,7 +27,20 @@ model_num = sys.argv[2]
 model_name = 'model'+str(model_num)
 model = load_model('models/'+model_name+'.h5')
 
+# Set up results folder and files
+results_dir = 'results/'+model_name+'/'
+if not os.path.exists(results_dir):
+    os.makedirs(results_dir)
+
+corr_file = results_dir+'correct.txt'
+incorr_file = results_dir+'incorrect.txt'
+perf_file = results_dir+'performance.txt'
+
+
 def generator(data_type):       # data_type = 'train' or 'val' depending on data being tested
+
+    class_acc = defaultdict(lambda: [0,0])
+
     # Identify data directory
     data_dir = os.path.join(base_dir, data_type)
     data_datagen = ImageDataGenerator(rescale=1./255)
@@ -57,22 +67,56 @@ def generator(data_type):       # data_type = 'train' or 'val' depending on data
     predictions = [labels[i] for i in predicted_class_indices]
     pred_vals = np.max(pred,axis=1)
 
-    # Loop through files and store file name according to correctness
-    correct = open(corr_file,'a+')
-    incorrect = open(incorr_file,'a+')
+    # Loop through files and store correct and incorrect filenames separately
+    correct = open(corr_file,'a')
+    incorrect = open(incorr_file,'a')
     for i in range(steps):
-        print(filenames[i]+'\t'+predictions[i]+'\t'+str(pred_vals[i]))
+        #print(filenames[i]+'\t'+predictions[i]+'\t'+str(pred_vals[i]))
         f = filenames[i].split('/')[0]
         if predictions[i] == f:
+            class_acc[f][0] += 1
             correct.write(filenames[i]+'\n')
         else:
+            class_acc[f][1] += 1
             incorrect.write(filenames[i]+'\n')
 
-# Clear contents
+    # Save total and per-class statistics
+    with open(perf_file,'a') as perf:
+        perf.write(model_name+': '+data_type+'\n')
+        count = 0
+        rmse = 0
+        correct = 0
+        incorrect = 0
+        # Accumulate stats from each class
+        for i in class_acc:
+            count += 1
+            correct += class_acc[i][0] 
+            incorrect += class_acc[i][1]
+            acc = float(class_acc[i][0])/float(class_acc[i][0]+class_acc[i][1])
+
+            # Accumulate RMSE values
+            rmse += (float(1-acc))**2
+
+            # Save class accuracy
+            perf.write(i+': '+str(acc)+'\n')
+
+        # Calculate and save total accuracy and RMSE
+        rmse /= float(count)
+        rmse = float(rmse) ** (0.5)
+        perf.write('total: '+str(float(correct)/float(correct+incorrect))+'\n')
+        perf.write('rmse: '+str(rmse))
+        
+        perf.write('\n\n')
+
+
+
+# Clear contents of save files
 a = open(corr_file,'w+')
 a.close()
 b = open(incorr_file,'w+')
 b.close()
+c = open(perf_file,'w+')
+c.close()
 
 # Run generator predictions on training and validation data
 generator('train')

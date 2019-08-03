@@ -53,7 +53,10 @@ for i in range(steps):
         class_acc[f][1] += 1
 
 # Save total and per-class statistics
-with open('results.txt','a') as f:
+results_dir = 'results/'
+if not os.path.exists(results_dir):
+    os.makedirs(results_dir)
+with open(results_dir+'all_results.txt','a') as f:
     f.write(model_name+'\n')
     count = 0
     rmse = 0

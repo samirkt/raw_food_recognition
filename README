@@ -26,10 +26,13 @@ data
 	---- class2
 
 Training:
-Training will save each trained model to a *.h5 file in the 'models/' directory. The model will be saved as 'modelX.h5' where X is the lowest available number in the 'models/' directory. Model hyperparameter settings will be appended to 'models.txt'. Training outputs will be saved to model specific files in the 'outputs/' directory.
+Training will save each trained model to a *.h5 file in the 'models/' directory. The model will be saved as 'modelX.h5' where X is the lowest unused number in the 'models/' directory. Model hyperparameter settings will be appended to 'models.txt'. Training outputs will be saved to model specific files in the 'outputs/' directory. Training is performed using the 'train.py' script (SEE "USAGE").
 
 Testing:
-Testing will accumulate stats for a model's performance on a per-class basis. Per-class accuracies, total accuracy, and total RMSE for the tested model will be appended to 'results.txt'.
+Testing will accumulate stats for a model's performance on the validation set on a per-class basis. Per-class accuracies, total accuracy, and total RMSE for the tested model will be appended to 'results/all_results.txt'. Testing is performed using the 'test.py' script (SEE "USAGE").
+
+Predicting Files:
+A model can be tested more thoroughly with the 'predict_all.py' script (SEE "USAGE"). In this script, all training and validation images are passed through a model. The names of all correctly classified files will be saved in a file called 'correct.txt' inside the directory 'results/modelX/' where X applies to the model number. The incorrectly classified files will be stored similarly in a file called 'incorrect.txt'. The prediction code will also report the performance statistics described in the "Testing" section above for both the training and validation data. These statistics will be stored in a file called 'performance.txt' in the same model-specific directory where 'correct.txt' and 'incorrect.txt' are located.
 
 
 ### USAGE ###
@@ -53,3 +56,6 @@ Testing will accumulate stats for a model's performance on a per-class basis. Pe
 
 #### Test model ####
 7. python test.py data/ x					// test model number x
+
+#### Predict all data ####
+8. python predict_all.py data/ x			// classify all training and validation data with model x
